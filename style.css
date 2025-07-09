@@ -1,0 +1,327 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Orbitron", sans-serif;
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  height: 100vh;
+  background-image: url("assets/images/space-bg.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#game-info {
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  justify-content: space-around;
+  z-index: 10;
+}
+
+#game-instructions {
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  margin: 5px 0;
+  text-align: center;
+  color: #ccc;
+}
+
+#game-wrapper {
+  display: flex;
+  width: 95%;
+  max-width: 1200px;
+  height: 80vh;
+  margin-top: 10px;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+#game-container {
+  width: 70%;
+  height: 100%;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2px solid #0066ff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#leaderboard-container {
+  width: 28%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#leaderboard {
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #0066ff;
+  border-radius: 10px;
+  padding: 15px;
+  height: 100%;
+  overflow: auto;
+}
+
+#leaderboard h2 {
+  color: #0066ff;
+  text-align: center;
+  margin-top: 0;
+  border-bottom: 1px solid #0066ff;
+  padding-bottom: 10px;
+}
+
+#leaderboard-tabs {
+  display: flex;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #333;
+}
+
+.tab {
+  background: none;
+  border: none;
+  color: #ccc;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-family: "Orbitron", sans-serif;
+  flex: 1;
+  transition: all 0.3s ease;
+}
+
+.tab.active {
+  color: #0066ff;
+  border-bottom: 2px solid #0066ff;
+}
+
+#leaderboard-list {
+  margin: 0;
+  padding: 0;
+}
+
+#leaderboard-list li {
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  background-color: rgba(0, 102, 255, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+#leaderboard-list li:hover {
+  background-color: rgba(0, 102, 255, 0.2);
+}
+
+#ship {
+  width: 60px;
+  height: 40px;
+  background-image: url("assets/images/my-ship.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translate(-50%, 0) rotate(0deg);
+  z-index: 10;
+}
+
+.bullet {
+  width: 5px;
+  height: 15px;
+  background-color: #ffcc00;
+  position: absolute;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #ffcc00;
+}
+
+.enemy-bullet {
+  width: 5px;
+  height: 15px;
+  background-color: #f00;
+  position: absolute;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #f00;
+}
+
+.enemy {
+  width: 50px;
+  height: 40px;
+  background-image: url("assets/images/enemy-ship.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  transform: rotate(180deg);
+  z-index: 5;
+}
+
+.shooting-enemy {
+  width: 55px;
+  height: 45px;
+  background-image: url("assets/images/enemy-shooter.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  transform: rotate(180deg);
+  z-index: 5;
+}
+
+.kamikaze-enemy {
+  width: 50px;
+  height: 50px;
+  background-image: url("assets/images/kamikaze.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  transform: rotate(180deg);
+  z-index: 5;
+}
+
+.heart {
+  width: 25px;
+  height: 25px;
+  background-image: url("assets/images/heart.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.double-shot {
+  width: 25px;
+  height: 25px;
+  background-image: url("assets/images/double-shot.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.speed-boost {
+  width: 25px;
+  height: 25px;
+  background-image: url("assets/images/speed.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+}
+
+.particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background-color: orange;
+  border-radius: 50%;
+  animation: explode 0.5s forwards;
+}
+
+@keyframes explode {
+  to {
+    transform: translate(var(--dx), var(--dy));
+    opacity: 0;
+  }
+}
+
+.shake {
+  animation: shake 0.1s linear;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+#start-screen,
+#end-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+button {
+  background-color: #0066ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  font-family: "Orbitron", sans-serif;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0052cc;
+}
+
+button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+input {
+  font-family: "Poppins", sans-serif;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+#my-best-score {
+  text-align: center;
+}
+
+#my-best-score h3 {
+  margin-top: 0;
+  color: #ffcc00;
+}
+
+#best-score-value {
+  font-size: 20px;
+  color: #ffcc00;
+  font-weight: bold;
+}
+
+/* Mobil uyumluluk */
+@media (max-width: 768px) {
+  #game-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+
+  #game-container {
+    width: 95%;
+    height: 60vh;
+  }
+
+  #leaderboard-container {
+    width: 95%;
+    margin-top: 20px;
+    height: auto;
+  }
+
+  #leaderboard {
+    max-height: 300px;
+  }
+}

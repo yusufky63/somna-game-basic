@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Somna | Space Shooter Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="game-info">
+    <div id="score">Score: <span>0</span></div>
+    <div id="level">Level: <span>1</span></div>
+    <div id="lives">Lives: <span>3</span></div>
+    <div id="wallet">Wallet: <span>Not Connected</span></div>
+  </div>
+
+  <div id="game-instructions">
+    A/D or ←/→: Move horizontally, Space: Fire, Enemies come from top to bottom
+  </div>
+
+  <div id="game-wrapper">
+    <div id="game-container">
+      <div id="ship"></div>
+
+      <div id="start-screen">
+        <h1 style="color: #ffcc00;">SPACE IMPACT</h1>
+        <p>Connect wallet to play and save your score to the blockchain!</p>
+        <button id="connect-wallet">CONNECT WALLET</button>
+        <button id="start-button" disabled>START GAME</button>
+        <div id="network-warning" style="display: none; color: #ff0000; margin-top: 10px;">
+          Please switch to Somnia network
+          <button id="switch-network">SWITCH NETWORK</button>
+        </div>
+        <div id="network-status" style="margin-top: 10px; font-size: 14px;"></div>
+      </div>
+
+      <div id="end-screen" style="display: none;">
+        <h1>GAME OVER</h1>
+        <p>Your score: <span id="final-score">0</span></p>
+        <input type="text" id="nickname-input" placeholder="Enter your nickname" maxlength="20">
+        <button id="restart-button">PLAY AGAIN</button>
+        <button id="save-score">SAVE SCORE</button>
+        <button id="share-score">SHARE SCORE</button>
+        <button id="redeem-button" style="display: none;">REDEEM TOKENS</button>
+      </div>
+    </div>
+    
+    <div id="leaderboard-container">
+      <div id="leaderboard">
+        <h2>Top Players</h2>
+        
+        <div id="leaderboard-tabs">
+          <button class="tab active" id="global-tab">Global</button>
+          <button class="tab" id="my-scores-tab">My Scores</button>
+        </div>
+        
+        <div id="my-best-score">
+          <h3>Your Best Score</h3>
+          <div id="best-score-value">0</div>
+        </div>
+        
+        <ul id="leaderboard-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script>
+    // Ethers.js loading check
+    window.addEventListener('load', function() {
+      if (typeof ethers === 'undefined') {
+        console.error('Ethers library could not be loaded!');
+        alert('The library required for blockchain connection could not be loaded. Please refresh the page or try a different browser.');
+      } else {
+        console.log('Ethers library successfully loaded:', ethers.version);
+      }
+    });
+  </script>
+  <script src="blockchain.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
